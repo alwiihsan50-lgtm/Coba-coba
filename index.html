@@ -1,22 +1,22 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DuitKeluarga - Catat Keuangan Praktis</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN (Versi Stabil & Kompatibel) -->
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
     <!-- Alpine.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="[https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js](https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js)"></script>
     <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap)" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Mengurangi highlight abu-abu saat tap di mobile Chrome/Safari */
         * {
             -webkit-tap-highlight-color: transparent;
         }
@@ -31,7 +31,7 @@
         <div class="absolute -top-24 -left-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <!-- NOTIFIKASI TOAST CUSTOM (Menggantikan Alert) -->
+        <!-- NOTIFIKASI TOAST CUSTOM -->
         <div x-show="toast.show" 
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0 translate-y-[-20px]"
@@ -52,7 +52,7 @@
             <div class="flex-1 flex flex-col justify-center items-center space-y-8 z-10">
                 <div class="text-center space-y-2">
                     <div class="inline-flex p-3 bg-emerald-500/10 text-emerald-400 rounded-2xl mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
@@ -92,22 +92,22 @@
                     <div class="flex items-center space-x-2">
                         <!-- Tombol Setelan -->
                         <button @click="showSettings = true" class="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-xl transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                               <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                             </svg>
                         </button>
                         <!-- Tombol Keluar -->
                         <button @click="logout()" class="p-2 text-rose-400 hover:bg-rose-950/30 rounded-xl transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                               <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
                             </svg>
                         </button>
                     </div>
                 </div>
 
-                <!-- BANNER PERINGATAN BROWSER (PENGGANTI ALERT) -->
+                <!-- BANNER PERINGATAN BROWSER -->
                 <div x-show="!isSpeechSupported" class="mt-4 p-4 bg-amber-950/50 border border-amber-500/30 rounded-2xl flex items-start space-x-3 text-amber-200 text-xs">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                     </svg>
                     <div>
@@ -128,11 +128,10 @@
                                         isRecording ? 'bg-rose-500 scale-110 shadow-rose-500/50' : 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/30'
                                     ]"
                                     class="w-full h-full rounded-full flex items-center justify-center transition-all duration-300 shadow-2xl relative z-10 focus:outline-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-16 w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                                 </svg>
                             </button>
-                            <!-- Efek Denyut Sinyal Suara -->
                             <div x-show="isRecording" class="absolute inset-0 bg-rose-500 rounded-full animate-ping opacity-30"></div>
                         </div>
 
@@ -155,21 +154,20 @@
                         <button @click="prosesSelesaiKetik()" :disabled="!rawText.trim() || isLoading"
                                 class="w-full bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-800 disabled:text-slate-500 text-slate-950 font-bold py-3.5 px-6 rounded-2xl transition shadow-lg flex items-center justify-center space-x-2">
                             <span>Kirim ke AI Parser</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
                         </button>
                     </div>
 
-                    <!-- PENGALIH MODE (SUARA <-> KETIK) -->
+                    <!-- PENGALIH MODE -->
                     <div class="flex justify-center">
                         <button @click="isManualMode = !isManualMode" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center space-x-1.5 bg-slate-800/30 px-4 py-2 rounded-full border border-slate-800">
-                            <!-- Ikon Keyboard / Mic -->
                             <span x-text="isManualMode ? 'Kembali ke Mode Suara' : 'Beralih ke Input Teks'"></span>
                         </button>
                     </div>
 
-                    <!-- STATUS LOADING & PROSESING DATA -->
+                    <!-- STATUS LOADING -->
                     <div x-show="isLoading" class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl flex items-center space-x-4 max-w-sm mx-auto shadow-xl">
                         <div class="animate-spin rounded-full h-5 w-5 border-2 border-emerald-400 border-t-transparent"></div>
                         <div class="flex-1">
@@ -183,7 +181,7 @@
         
         <!-- FOOTER BRAND -->
         <footer class="text-center text-[10px] text-slate-600 font-mono tracking-wider mt-4">
-            PONTYTAIL ENGINE v1.2 • 2026
+            PONYTAIL ENGINE v1.2 • 2026
         </footer>
 
         <!-- ========================================== -->
@@ -199,10 +197,10 @@
                 <div class="space-y-4">
                     <div class="space-y-1.5">
                         <label class="text-xs font-bold text-slate-300">Google Apps Script Web App URL</label>
-                        <input type="text" x-model="appsScriptUrl" placeholder="https://script.google.com/macros/s/.../exec"
+                        <input type="text" x-model="appsScriptUrl" placeholder="[https://script.google.com/macros/s/.../exec](https://script.google.com/macros/s/.../exec)"
                                class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 focus:border-emerald-500 focus:outline-none shadow-inner">
                         <p class="text-[10px] text-slate-500 leading-relaxed">
-                            URL ini didapat setelah Anda melakukan *Deploy* sebagai *Web App* di menu Google Sheets Apps Script Anda.
+                            URL didapat setelah Anda melakukan *Deploy* sebagai *Web App* di menu Google Sheets Apps Script Anda.
                         </p>
                     </div>
                 </div>
@@ -211,7 +209,7 @@
                     <button @click="simpanPengaturan()" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl text-xs transition">
                         Simpan Setelan
                     </button>
-                    <button @click="showSettings = false" class="bg-slate-850 hover:bg-slate-800 text-slate-300 font-bold px-5 py-3 rounded-xl text-xs transition">
+                    <button @click="showSettings = false" class="bg-slate-800 hover:bg-slate-750 text-slate-300 font-bold px-5 py-3 rounded-xl text-xs transition">
                         Tutup
                     </button>
                 </div>
@@ -224,17 +222,14 @@
     <script>
         function appKeuangan() {
             return {
-                // CONFIGURATION
                 appsScriptUrl: '',
                 
-                // MAPPING DAFTAR KELUARGA (Identitas HP di-lock lewat kode unik)
                 DAFTAR_KELUARGA: {
                     '1111': 'Ayah',
                     '2222': 'Ibu',
                     '3333': 'Anak'
                 },
 
-                // STATES
                 passcode: '',
                 isLoggedIn: false,
                 currentUser: '',
@@ -251,50 +246,47 @@
                 toast: { show: false, type: 'success', msg: '' },
 
                 initApp() {
-                    // Cek apakah ada konfigurasi Apps Script URL tersimpan di perangkat ini
-                    const savedUrl = localStorage.getItem('apps_script_url');
-                    if (savedUrl) {
-                        this.appsScriptUrl = savedUrl;
-                    }
+                    // Try-catch untuk mencegah crash di mode Private/Incognito
+                    try {
+                        const savedUrl = localStorage.getItem('apps_script_url');
+                        if (savedUrl) this.appsScriptUrl = savedUrl;
 
-                    // Ambil status login tersimpan
-                    const savedUser = localStorage.getItem('user_keuangan');
-                    if (savedUser) {
-                        this.currentUser = savedUser;
-                        this.isLoggedIn = true;
+                        const savedUser = localStorage.getItem('user_keuangan');
+                        if (savedUser) {
+                            this.currentUser = savedUser;
+                            this.isLoggedIn = true;
+                        }
+                    } catch (e) {
+                        console.warn("Storage tidak dapat diakses.");
                     }
                     
-                    // Inisialisasi API Speech Recognition bawaan browser
                     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                     if (!SpeechRecognition) {
                         this.isSpeechSupported = false;
-                        this.isManualMode = true; // Langsung arahkan ke input ketik manual
+                        this.isManualMode = true;
                         return;
                     }
 
                     this.recognition = new SpeechRecognition();
-                    this.recognition.lang = 'id-ID'; // Dipaksa menangkap intonasi bahasa Indonesia
+                    this.recognition.lang = 'id-ID';
                     this.recognition.continuous = false;
                     this.recognition.interimResults = false;
 
-                    // Saat suara selesai diproses browser
                     this.recognition.onresult = (event) => {
                         this.rawText = event.results[0][0].transcript;
                         this.isRecording = false;
                         this.kirimKeBackend();
                     };
 
-                    this.recognition.onerror = (event) => {
+                    this.recognition.onerror = () => {
                         this.isRecording = false;
-                        this.statusText = 'Gagal merekam suara.';
-                        this.showToast('error', 'Terjadi kesalahan sistem rekam suara. Silakan coba lagi.');
+                        this.statusText = 'Gagal merekam.';
+                        this.showToast('error', 'Perekam gagal mendeteksi suara.');
                     };
 
                     this.recognition.onend = () => {
                         this.isRecording = false;
-                        if (!this.rawText) {
-                            this.statusText = 'Siap Mencatat';
-                        }
+                        if (!this.rawText) this.statusText = 'Siap Mencatat';
                     };
                 },
 
@@ -302,10 +294,12 @@
                     if (this.passcode.length === 4) {
                         if (this.DAFTAR_KELUARGA[this.passcode]) {
                             this.currentUser = this.DAFTAR_KELUARGA[this.passcode];
-                            localStorage.setItem('user_keuangan', this.currentUser);
+                            try {
+                                localStorage.setItem('user_keuangan', this.currentUser);
+                            } catch(e) {}
                             this.isLoggedIn = true;
                             this.errorMsg = '';
-                            this.showToast('success', `Berhasil masuk sebagai ${this.currentUser}!`);
+                            this.showToast('success', `Halo ${this.currentUser}, selamat datang!`);
                         } else {
                             this.errorMsg = 'Kode salah, silakan coba kode lainnya.';
                             this.passcode = '';
@@ -314,7 +308,9 @@
                 },
 
                 logout() {
-                    localStorage.removeItem('user_keuangan');
+                    try {
+                        localStorage.removeItem('user_keuangan');
+                    } catch(e) {}
                     this.isLoggedIn = false;
                     this.currentUser = '';
                     this.passcode = '';
@@ -329,7 +325,7 @@
                         this.isRecording = false;
                     } else {
                         this.rawText = '';
-                        this.statusText = 'Mendengarkan... Bicara sekarang';
+                        this.statusText = 'Mendengarkan...';
                         this.isRecording = true;
                         this.recognition.start();
                     }
@@ -341,9 +337,8 @@
                 },
 
                 async kirimKeBackend() {
-                    // Cek kelengkapan setelan sebelum menembak
                     if (!this.appsScriptUrl || this.appsScriptUrl.trim() === '') {
-                        this.showToast('error', 'Konfigurasi Apps Script URL kosong! Silakan isi di menu setelan (ikon gerigi).');
+                        this.showToast('error', 'Harap isi URL Google Apps Script Anda di ikon gerigi (kanan atas) terlebih dahulu.');
                         return;
                     }
 
@@ -351,21 +346,16 @@
                     this.loadingStep = 'Menghubungi AI untuk mengurai kalimat...';
 
                     try {
-                        // Mengirim teks mentah dan nama pengirim langsung ke server Google Apps Script
-                        // Di sanalah OpenRouter API akan dipanggil secara aman (API Key aman di cloud)
-                        const response = await fetch(this.appsScriptUrl, {
+                        await fetch(this.appsScriptUrl, {
                             method: 'POST',
-                            mode: 'no-cors', // Mencegah pemblokiran browser akibat regulasi CORS
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 user: this.currentUser,
                                 raw_text: this.rawText
                             })
                         });
 
-                        // Karena 'no-cors', kita sukses mengirim data selama fetch tidak melempar error
                         this.showToast('success', 'Catatan terkirim! Silakan periksa Google Sheet keluarga.');
                         this.rawText = '';
                         this.statusText = 'Siap Mencatat';
@@ -380,7 +370,9 @@
 
                 simpanPengaturan() {
                     if (this.appsScriptUrl.trim() !== '') {
-                        localStorage.setItem('apps_script_url', this.appsScriptUrl.trim());
+                        try {
+                            localStorage.setItem('apps_script_url', this.appsScriptUrl.trim());
+                        } catch(e) {}
                         this.showSettings = false;
                         this.showToast('success', 'Konfigurasi Google Cloud berhasil disimpan!');
                     } else {
@@ -392,14 +384,12 @@
                     this.toast.msg = msg;
                     this.toast.type = type;
                     this.toast.show = true;
-                    
-                    // Hilangkan toast otomatis setelah 4 detik
-                    setTimeout(() => {
-                        this.toast.show = false;
-                    }, 4000);
+                    setTimeout(() => { this.toast.show = false; }, 4000);
                 }
             }
         }
     </script>
 </body>
 </html>
+
+```
