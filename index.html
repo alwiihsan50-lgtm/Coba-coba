@@ -1,995 +1,763 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DuitKeluarga - Catat Keuangan Praktis</title>
-    
-    <!-- GOOGLE FONTS (Opsional, jika gagal muat akan otomatis fallback ke sans-serif bawaan HP) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- VANILLA CSS: Premium, Ringan, Instan, & Bebas CDN -->
-    <style>
+<!DOCTYPE html\>
+
+<html lang\="id"\>
+
+<head\>
+
+    <meta charset\="UTF-8"\>
+
+    <meta name\="viewport" content\="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"\>
+
+    <title\>DuitKeluarga</title\>
+
+    <link rel\="preconnect" href\="https://fonts.googleapis.com"\>
+
+    <link rel\="preconnect" href\="https://fonts.gstatic.com" crossorigin\>
+
+    <link href\="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel\="stylesheet"\>
+
+    <style\>
+
         :root {
-            --bg-color: #030712;
-            --card-bg: #0f172a;
-            --border-color: #1e293b;
-            --primary: #10b981;
-            --primary-hover: #059669;
-            --danger: #f43f5e;
-            --danger-hover: #e11d48;
-            --text-main: #f9fafb;
-            --text-muted: #94a3b8;
+
+            \--bg-color: #050505;
+
+            \--card-bg: #111111;
+
+            \--border-color: #2a2a2a;
+
+            \--primary: #10b981;
+
+            \--danger: #ef4444;
+
+            \--text-main: #ffffff;
+
+            \--text-muted: #888888;
+
         }
 
         body {
+
             background-color: var(--bg-color);
+
             color: var(--text-main);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+            font-family: 'Inter', sans-serif;
+
             margin: 0;
+
             padding: 0;
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            -webkit-tap-highlight-color: transparent;
+
+            \-webkit-tap-highlight-color: transparent;
+
         }
 
-        /* Container Ponsel */
         .app-container {
+
             width: 100%;
+
             max-width: 440px;
+
             background-color: var(--card-bg);
+
             min-height: 100vh;
+
             box-sizing: border-box;
-            padding: 24px;
+
+            padding: 20px;
+
             display: flex;
+
             flex-direction: column;
-            justify-content: space-between;
+
             position: relative;
-            overflow: hidden;
+
         }
 
         @media (min-width: 640px) {
+
             .app-container {
+
                 min-height: 800px;
+
                 border-radius: 24px;
+
                 border: 1px solid var(--border-color);
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
             }
+
         }
 
-        /* Dekorasi Blur Background */
-        .blur-orb-1, .blur-orb-2 {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            opacity: 0.15;
-        }
-        .blur-orb-1 { top: -50px; left: -50px; background-color: var(--primary); }
-        .blur-orb-2 { bottom: -50px; right: -50px; background-color: #3b82f6; }
-
-        /* Utilitas Tampilan */
         .hidden { display: none !important; }
 
-        /* Toast Notification */
+        /\* Toast \*/
+
         .toast {
+
             position: absolute;
-            top: 24px;
-            left: 24px;
-            right: 24px;
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 100;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: slideDown 0.3s ease-out;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-        .toast-success { background-color: rgba(6, 78, 59, 0.95); color: #a7f3d0; border-color: rgba(16, 185, 129, 0.3); }
-        .toast-error { background-color: rgba(159, 18, 57, 0.95); color: #fecdd3; border-color: rgba(244, 63, 94, 0.3); }
-        .toast button {
-            background: none;
-            border: none;
-            color: inherit;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 4px 8px;
-            opacity: 0.7;
-        }
-        .toast button:hover { opacity: 1; }
 
-        /* Sektor 1: Halaman Passcode */
-        .screen-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
+            top: 20px;
 
-        .icon-box {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            padding: 16px;
-            border-radius: 20px;
-            margin-bottom: 16px;
-            display: inline-flex;
-        }
+            left: 20px;
 
-        h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin: 0;
-            color: white;
-            letter-spacing: -0.5px;
-        }
+            right: 20px;
 
-        .sub-title {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin: 8px 0 24px 0;
-            text-align: center;
-        }
+            padding: 14px;
 
-        /* Passcode Input */
-        .passcode-input {
-            width: 180px;
-            text-align: center;
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 12px;
-            background-color: rgba(30, 41, 59, 0.5);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 16px;
-            color: white;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .passcode-input:focus {
-            border-color: var(--primary);
-        }
-        .passcode-input::placeholder {
-            color: #334155;
-            letter-spacing: 2px;
-        }
+            border-radius: 12px;
 
-        .error-badge {
-            color: var(--danger);
-            background-color: rgba(244, 63, 94, 0.1);
-            padding: 6px 12px;
-            border-radius: 99px;
-            font-size: 12px;
+            font-size: 13px;
+
             font-weight: 600;
-            margin-top: 12px;
-        }
 
-        .instructions-box {
-            background-color: rgba(30, 41, 59, 0.25);
-            border: 1px solid var(--border-color);
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 12px;
-            color: #64748b;
-            text-align: center;
-            margin-top: 32px;
-            line-height: 1.5;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* Sektor 2: Dashboard */
-        .dashboard-layout {
-            flex: 1;
             display: flex;
-            flex-direction: column;
+
             justify-content: space-between;
-            z-index: 10;
+
+            z-index: 100;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+
+            animation: slideDown 0.3s;
+
         }
+
+        .toast-success { background-color: #064e3b; color: #34d399; border: 1px solid #047857; }
+
+        .toast-error { background-color: #7f1d1d; color: #fca5a5; border: 1px solid #b91c1c; }
+
+        /\* Passcode Screen \*/
+
+        .passcode-screen {
+
+            flex: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+        .passcode-screen h1 { margin-bottom: 8px; font-size: 28px; }
+
+        .passcode-input {
+
+            width: 180px;
+
+            text-align: center;
+
+            font-size: 32px;
+
+            letter-spacing: 12px;
+
+            background-color: #000;
+
+            border: 2px solid var(--border-color);
+
+            border-radius: 16px;
+
+            padding: 16px;
+
+            color: white;
+
+            outline: none;
+
+            margin-top: 20px;
+
+        }
+
+        .passcode-input:focus { border-color: var(--primary); }
+
+        /\* Dashboard Screen \*/
+
+        .dashboard-screen {
+
+            flex: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+
+        }
+
+        /\* HEADER (Mini) \*/
 
         .header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            background-color: rgba(30, 41, 59, 0.4);
+
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid var(--border-color);
+
+        }
+
+        .user-info { display: flex; align-items: center; gap: 10px; }
+
+        .user-info span { font-weight: 700; font-size: 14px; }
+
+        .header-btns button {
+
+            background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 5px;
+
+        }
+
+        /\* INPUT AREA (SEKARANG DI ATAS) \*/
+
+        .input-area {
+
+            background-color: #000;
+
             border: 1px solid var(--border-color);
-            padding: 12px 16px;
-            border-radius: 16px;
-        }
 
-        .user-profile {
+            border-radius: 20px;
+
+            padding: 24px 20px;
+
             display: flex;
-            align-items: center;
-            gap: 12px;
-        }
 
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 18px;
-        }
-
-        .profile-info p { margin: 0; }
-        .profile-info .role-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-        .profile-info .username { font-size: 15px; font-weight: 800; color: white; }
-
-        .header-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            padding: 8px;
-            border-radius: 12px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        .icon-btn:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-        .icon-btn.logout-btn { color: var(--danger); }
-        .icon-btn.logout-btn:hover { background-color: rgba(244, 63, 94, 0.1); }
-
-        /* Mic Button & Area */
-        .interaction-area {
-            flex: 1;
-            display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 24px;
-        }
 
-        .mic-wrapper {
-            position: relative;
-            width: 140px;
-            height: 140px;
+            align-items: center;
+
+            gap: 20px;
+
         }
 
         .mic-btn {
-            width: 100%;
-            height: 100%;
+
+            width: 120px;
+
+            height: 120px;
+
             border-radius: 50%;
-            border: none;
+
             background-color: var(--primary);
-            color: white;
-            cursor: pointer;
+
+            color: #000;
+
+            border: none;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            transition: all 0.3s;
-            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
-            z-index: 10;
-            position: relative;
-            outline: none;
-        }
-        .mic-btn:disabled {
-            background-color: #334155;
-            color: #64748b;
-            cursor: not-allowed;
-            box-shadow: none;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
         }
 
         .mic-btn.recording {
-            background-color: var(--danger);
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.4);
-        }
 
-        .pulse-wave {
-            position: absolute;
-            inset: 0;
             background-color: var(--danger);
-            border-radius: 50%;
+
             animation: pulse 1.5s infinite;
-            pointer-events: none;
+
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
+        .mic-btn:disabled { background-color: #333; color: #555; }
 
-        .status-header {
-            font-size: 18px;
-            font-weight: 700;
-            margin: 0;
-            text-align: center;
-        }
-        .status-header.recording { color: var(--danger); }
+        .status-text { font-weight: 700; font-size: 16px; text-align: center; }
 
-        .text-preview-box {
-            background-color: rgba(3, 7, 18, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 16px;
+        .status-text.recording { color: var(--danger); }
+
+        .preview-text { font-size: 13px; color: var(--text-muted); text-align: center; font-style: italic; }
+
+        .manual-input {
+
             width: 100%;
-            box-sizing: border-box;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .text-preview-box p {
-            margin: 0;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: center;
-            font-style: italic;
-        }
 
-        /* Manual Mode Textarea */
-        .manual-area {
-            width: 100%;
-            box-sizing: border-box;
             display: flex;
+
             flex-direction: column;
+
             gap: 12px;
+
         }
-        .manual-area label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .manual-area textarea {
-            width: 100%;
-            box-sizing: border-box;
-            background-color: rgba(3, 7, 18, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 16px;
-            color: white;
-            font-size: 14px;
-            line-height: 1.6;
-            resize: none;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .manual-area textarea:focus {
-            border-color: var(--primary);
+
+        .manual-input textarea {
+
+            width: 100%; box-sizing: border-box;
+
+            background: #111; border: 1px solid var(--border-color);
+
+            padding: 16px; border-radius: 12px; color: white; resize: none; outline: none;
+
         }
 
         .submit-btn {
-            background-color: var(--primary);
-            color: #030712;
-            border: none;
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .submit-btn:disabled {
-            background-color: #1e293b;
-            color: #475569;
-            cursor: not-allowed;
+
+            background: var(--primary); color: #000; font-weight: 700;
+
+            padding: 14px; border-radius: 12px; border: none; cursor: pointer;
+
         }
 
-        .mode-toggle-btn {
-            background-color: rgba(30, 41, 59, 0.4);
-            border: 1px solid var(--border-color);
-            color: var(--primary);
-            padding: 8px 16px;
-            border-radius: 99px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .mode-toggle-btn:hover {
-            background-color: rgba(30, 41, 59, 0.8);
+        .toggle-btn {
+
+            background: transparent; color: var(--text-muted); border: 1px solid var(--border-color);
+
+            padding: 8px 16px; border-radius: 20px; font-size: 12px; cursor: pointer;
+
         }
 
-        /* Loading Box */
-        .loader-card {
-            background-color: rgba(3, 7, 18, 0.9);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            width: 100%;
-            box-sizing: border-box;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-        .spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        .loader-info p { margin: 0; }
-        .loader-title { font-size: 12px; font-weight: 700; color: white; }
-        .loader-subtitle { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+        .loader {
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+            background: #000; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);
+
+            display: flex; align-items: center; gap: 12px; font-size: 12px; font-weight: bold;
+
         }
 
-        /* Browser warning banner */
-        .warning-banner {
-            background-color: rgba(120, 53, 4, 0.3);
-            border: 1px solid rgba(217, 119, 6, 0.3);
-            color: #fef3c7;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-size: 11px;
-            line-height: 1.5;
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-        }
+        /\* Settings Modal \*/
 
-        /* Sektor 3: Settings Modal (Premium & styled) */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(3, 7, 18, 0.85);
-            backdrop-filter: blur(4px);
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
+        .modal {
+
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+
+            display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+
         }
 
         .modal-card {
-            width: 100%;
-            max-width: 380px;
-            background-color: var(--card-bg);
+
+            background: var(--card-bg); width: 100%; border-radius: 20px; padding: 20px;
+
             border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 24px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+
         }
 
-        .modal-header h2 { margin: 0; font-size: 20px; font-weight: 800; color: white; }
-        .modal-header p { margin: 4px 0 0 0; font-size: 11px; color: var(--text-muted); }
+        .modal-card input {
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .form-group label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-        .form-group input {
-            background-color: rgba(3, 7, 18, 0.5);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
-            color: white;
-            font-size: 13px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .form-group input:focus { border-color: var(--primary); }
-        .form-hint { font-size: 10px; color: #475569; line-height: 1.5; margin: 0; }
+            width: 100%; box-sizing: border-box; background: #000; border: 1px solid var(--border-color);
 
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-        }
-        .modal-actions button {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-save { background-color: var(--primary); color: #030712; }
-        .btn-close { background-color: #1e293b; color: var(--text-main); }
+            padding: 12px; border-radius: 8px; color: white; margin: 12px 0; outline: none;
 
-        footer {
-            text-align: center;
-            font-size: 9px;
-            font-family: monospace;
-            color: #334155;
-            letter-spacing: 1px;
-            margin-top: 16px;
         }
 
-        @keyframes slideDown {
-            0% { transform: translateY(-10px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+        .modal-btns { display: flex; gap: 10px; }
+
+        .modal-btns button { flex: 1; padding: 12px; border-radius: 8px; border: none; font-weight: bold; }
+
+        @keyframes pulse {
+
+            0% { transform: scale(1); }
+
+            50% { transform: scale(1.05); }
+
+            100% { transform: scale(1); }
+
         }
-    </style>
-</head>
-<body>
 
-    <div class="app-container">
-        <!-- Bulat background blur -->
-        <div class="blur-orb-1"></div>
-        <div class="blur-orb-2"></div>
+        @keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0;} 100% { transform: translateY(0); opacity: 1;} }
 
-        <!-- Custom Toast Banner -->
-        <div id="toast-banner" class="toast hidden">
-            <span id="toast-message">Pesan disini</span>
-            <button onclick="hideToast()">TUTUP</button>
-        </div>
+    </style\>
+
+</head\>
+
+<body\>
+
+    <div class\="app-container"\>
+
+        <!-- Toast Banner -->
+
+        <div id\="toast" class\="toast hidden"\>
+
+            <span id\="toast-msg"\></span\>
+
+            <button onclick\="document.getElementById('toast').classList.add('hidden')" style\="background:none;border:none;color:inherit;font-weight:bold;"\>X</button\>
+
+        </div\>
 
         <!-- ========================================== -->
-        <!-- SEKTOR 1: HALAMAN PASSCODE (LOGIN) -->
-        <!-- ========================================== -->
-        <div id="screen-passcode" class="screen-content">
-            <div class="icon-box">
-                <!-- Ikon Dolar -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-            </div>
-            <h1>DuitKeluarga</h1>
-            <p class="sub-title">Masukkan kode rahasia anggota keluarga</p>
 
-            <input type="password" id="input-passcode" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="••••" class="passcode-input">
-            <div id="passcode-error" class="error-badge hidden">Kode salah, coba lagi!</div>
-
-            <div class="instructions-box">
-                Gunakan kode bawaan:<br>
-                <strong style="color: var(--primary)">1111</strong> (Ayah) • 
-                <strong style="color: var(--primary)">2222</strong> (Ibu) • 
-                <strong style="color: var(--primary)">3333</strong> (Anak)
-            </div>
-        </div>
+        <!-- SCREEN 1: LOGIN -->
 
         <!-- ========================================== -->
-        <!-- SEKTOR 2: DASHBOARD UTAMA (CATAT DUIT) -->
-        <!-- ========================================== -->
-        <div id="screen-dashboard" class="dashboard-layout hidden">
-            <!-- Header Atas -->
-            <div class="header">
-                <div class="user-profile">
-                    <div class="avatar" id="user-avatar">?</div>
-                    <div class="profile-info">
-                        <p class="role-label">Profil Aktif</p>
-                        <p class="username" id="user-name">Memuat...</p>
-                    </div>
-                </div>
-                <div class="header-actions">
-                    <button class="icon-btn" onclick="openSettingsModal()">
-                        <!-- Ikon Settings -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                    </button>
-                    <button class="icon-btn logout-btn" onclick="logout()">
-                        <!-- Ikon Logout -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                    </button>
-                </div>
-            </div>
 
-            <!-- Banner warning Safari/Chrome rekam suara -->
-            <div id="banner-warning-speech" class="warning-banner hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                <div>
-                    <strong>Perekam suara tidak didukung.</strong> Browser ini melarang akses mikrofon atau tidak kompatibel. Tenang Bos, Anda tetap bisa mengetik manual dengan mengeklik tombol di bawah.
-                </div>
-            </div>
+        <div id\="screen-passcode" class\="passcode-screen"\>
 
-            <!-- Area Interaksi Utama -->
-            <div class="interaction-area">
-                
-                <!-- KOTAK MODE SUARA -->
-                <div id="wrapper-voice-mode" class="interaction-area" style="width:100%">
-                    <div class="mic-wrapper">
-                        <button id="btn-mic" class="mic-btn" onclick="toggleMerekam()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                        </button>
-                        <div id="mic-pulse" class="pulse-wave hidden"></div>
-                    </div>
+            <h1\>DuitKeluarga</h1\>
 
-                    <div>
-                        <h3 id="status-record" class="status-header">Siap Mencatat</h3>
-                        <div class="text-preview-box" style="margin-top: 12px;">
-                            <p id="text-speech-preview" class="text-muted">Ketuk tombol hijau lalu mulailah berbicara secara alami...</p>
-                        </div>
-                    </div>
-                </div>
+            <p style\="color:var(--text-muted); font-size:13px;"\>Masukkan PIN (1111 / 2222 / 3333)</p\>
 
-                <!-- KOTAK MODE KETIK MANUAL -->
-                <div id="wrapper-manual-mode" class="manual-area hidden">
-                    <label for="input-manual-text">Ketik Catatan Transaksi</label>
-                    <textarea id="input-manual-text" placeholder="Contoh: Beli bensin motor dua puluh lima ribu" rows="4"></textarea>
-                    
-                    <button id="btn-submit-manual" class="submit-btn" onclick="prosesKetikManual()">
-                        <span>Kirim ke AI Parser</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </button>
-                </div>
+            <input type\="password" id\="input-pin" class\="passcode-input" pattern\="\[0-9\]\*" inputmode\="numeric" maxlength\="4"\>
 
-                <!-- Tombol Tukar Mode -->
-                <button id="btn-toggle-mode" class="mode-toggle-btn" onclick="toggleInputMode()">
-                    Beralih ke Input Teks
-                </button>
+            <p id\="pin-error" class\="hidden" style\="color:var(--danger); font-size:12px; margin-top:10px;"\>PIN Salah!</p\>
 
-                <!-- Loading Indicator Card -->
-                <div id="card-loading" class="loader-card hidden">
-                    <div class="spinner"></div>
-                    <div class="loader-info">
-                        <p class="loader-title">Memproses Transaksi</p>
-                        <p id="loading-step-text" class="loader-subtitle">Menghubungi AI di cloud...</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- FOOTER -->
-        <footer>
-            PONYTAIL ENGINE v1.3 • 100% VANILLA NATIVE
-        </footer>
+        </div\>
 
         <!-- ========================================== -->
-        <!-- SEKTOR 3: MODAL SETELAN RAHASIA (SETTINGS) -->
+
+        <!-- SCREEN 2: DASHBOARD UTAMA -->
+
         <!-- ========================================== -->
-        <div id="modal-settings" class="modal-overlay hidden">
-            <div class="modal-card">
-                <div class="modal-header">
-                    <h2>Pengaturan Integrasi</h2>
-                    <p>Konfigurasi jembatan cloud Google Sheets Anda</p>
-                </div>
 
-                <div class="form-group">
-                    <label for="input-script-url">Google Apps Script Web App URL</label>
-                    <input type="text" id="input-script-url" placeholder="https://script.google.com/macros/s/.../exec">
-                    <p class="form-hint">
-                        Masukkan URL Web App hasil <strong>Deploy</strong> Apps Script di Google Sheets. Pastikan diakhiri kata <strong>/exec</strong>.
-                    </p>
-                </div>
+        <div id\="screen-dashboard" class\="dashboard-screen hidden"\>
 
-                <div class="modal-actions">
-                    <button class="btn-save" onclick="saveSettings()">Simpan Setelan</button>
-                    <button class="btn-close" onclick="closeSettingsModal()">Tutup</button>
-                </div>
-            </div>
-        </div>
+            <!-- HEADER KECIL DI ATAS -->
 
-    </div>
+            <div class\="header"\>
 
-    <!-- ========================================== -->
-    <!-- VANILLA JAVASCRIPT: 100% NATIVE, RINGAN & KEBAL CRASH -->
-    <!-- ========================================== -->
-    <script>
-        // DAFTAR KELUARGA (Identitas dikunci lewat kode)
-        const DAFTAR_KELUARGA = {
-            '1111': 'Ayah',
-            '2222': 'Ibu',
-            '3333': 'Anak'
-        };
+                <div class\="user-info"\>
 
-        // GLOBAL APP STATE
-        let state = {
-            appsScriptUrl: '',
-            currentUser: '',
-            isLoggedIn: false,
-            isRecording: false,
-            isManualMode: false,
-            isLoading: false,
-            isSpeechSupported: true,
-            rawText: '',
-            recognition: null
-        };
+                    <span id\="user-name"\>Memuat...</span\>
 
-        // INITIALIZE APP ON LOAD
-        window.addEventListener('DOMContentLoaded', () => {
-            initApp();
-        });
+                </div\>
 
-        function initApp() {
-            // Ambil data localStorage secara aman
-            try {
-                const savedUrl = localStorage.getItem('apps_script_url');
-                if (savedUrl) {
-                    state.appsScriptUrl = savedUrl;
-                    document.getElementById('input-script-url').value = savedUrl;
-                }
+                <div class\="header-btns"\>
 
-                const savedUser = localStorage.getItem('user_keuangan');
-                if (savedUser) {
-                    state.currentUser = savedUser;
-                    state.isLoggedIn = true;
-                    showDashboard();
-                } else {
-                    showPasscodeScreen();
-                }
-            } catch (e) {
-                console.warn("Akses local storage dilarang oleh browser.");
-            }
+                    <button onclick\="document.getElementById('modal-settings').classList.remove('hidden')"\>⚙️ Setelan</button\>
 
-            // Setup input event listener passcode
-            const passcodeField = document.getElementById('input-passcode');
-            passcodeField.addEventListener('input', (e) => {
-                const val = e.target.value;
-                if (val.length === 4) {
-                    if (DAFTAR_KELUARGA[val]) {
-                        state.currentUser = DAFTAR_KELUARGA[val];
-                        state.isLoggedIn = true;
-                        try {
-                            localStorage.setItem('user_keuangan', state.currentUser);
-                        } catch(err) {}
-                        
-                        document.getElementById('passcode-error').classList.add('hidden');
-                        showToast('success', `Selamat datang ${state.currentUser}!`);
+                    <button onclick\="logout()" style\="color:var(--danger)"\>Keluar</button\>
+
+                </div\>
+
+            </div\>
+
+            <!-- INPUT AREA (SEKARANG POSISI DI ATAS) -->
+
+            <div class\="input-area"\>
+
+                <!-- Mode Suara -->
+
+                <div id\="mode-voice" style\="display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;"\>
+
+                    <button id\="btn-mic" class\="mic-btn" onclick\="toggleMerekam()"\>
+
+                        <svg xmlns\="http://www.w3.org/2000/svg" width\="40" height\="40" viewBox\="0 0 24 24" fill\="none" stroke\="currentColor" stroke-width\="2" stroke-linecap\="round" stroke-linejoin\="round"\><path d\="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"\></path\><path d\="M19 10v1a7 7 0 0 1-14 0v-1"\></path\><line x1\="12" y1\="19" x2\="12" y2\="23"\></line\><line x1\="8" y1\="23" x2\="16" y2\="23"\></line\></svg\>
+
+                    </button\>
+
+                    <div style\="width:100%;"\>
+
+                        <div id\="status-text" class\="status-text"\>Siap Mencatat</div\>
+
+                        <div id\="preview-text" class\="preview-text mt-2"\>Sentuh mikrofon untuk bicara...</div\>
+
+                    </div\>
+
+                </div\>
+
+                <!-- Mode Ketik Manual -->
+
+                <div id\="mode-manual" class\="manual-input hidden"\>
+
+                    <textarea id\="input-text" rows\="3" placeholder\="Contoh: Beli bensin dua puluh ribu"\></textarea\>
+
+                    <button class\="submit-btn" onclick\="kirimManual()"\>Kirim ke AI</button\>
+
+                </div\>
+
+                <button id\="btn-toggle" class\="toggle-btn" onclick\="toggleMode()"\>Beralih ke Input Teks</button\>
+
+            </div\>
+
+            <!-- LOADING INDICATOR -->
+
+            <div id\="loader" class\="loader hidden"\>
+
+                <span style\="color:var(--primary)"\>Sedang memproses & menyimpan data...</span\>
+
+            </div\>
+
+        </div\>
+
+        <!-- ========================================== -->
+
+        <!-- MODAL SETELAN -->
+
+        <!-- ========================================== -->
+
+        <div id\="modal-settings" class\="modal hidden"\>
+
+            <div class\="modal-card"\>
+
+                <h3 style\="margin:0 0 10px 0;"\>URL Google Apps Script</h3\>
+
+                <p style\="font-size:12px; color:var(--text-muted); margin:0;"\>Wajib diakhiri dengan /exec</p\>
+
+                <input type\="text" id\="input-url" placeholder\="https://script.google.com/macros/s/.../exec"\>
+
+                <div class\="modal-btns"\>
+
+                    <button onclick\="simpanSetelan()" style\="background:var(--primary); color:#000;"\>Simpan</button\>
+
+                    <button onclick\="document.getElementById('modal-settings').classList.add('hidden')" style\="background:#333; color:white;"\>Tutup</button\>
+
+                </div\>
+
+            </div\>
+
+        </div\>
+
+    </div\>
+
+    <!-- LOGIKA JAVASCRIPT -->
+
+    <script\>
+
+        const KELUARGA \= {'1111':'Ayah', '2222':'Ibu', '3333':'Anak'};
+
+        let state \= { url: '', user: '', isManual: false, isRecording: false, text: '', recognition: null };
+
+        // INIT
+
+        window.onload \= () \=> {
+
+            if(localStorage.getItem('url')) { state.url \= localStorage.getItem('url'); document.getElementById('input-url').value \= state.url; }
+
+            if(localStorage.getItem('user')) { state.user \= localStorage.getItem('user'); showDashboard(); }
+
+            // PIN Input logic
+
+            document.getElementById('input-pin').addEventListener('input', (e) \=> {
+
+                if(e.target.value.length \=== 4) {
+
+                    if(KELUARGA\[e.target.value\]) {
+
+                        state.user \= KELUARGA\[e.target.value\];
+
+                        localStorage.setItem('user', state.user);
+
+                        e.target.value \= '';
+
+                        document.getElementById('pin-error').classList.add('hidden');
+
+                        showToast('success', 'Selamat datang ' + state.user);
+
                         showDashboard();
-                        passcodeField.value = '';
+
                     } else {
-                        document.getElementById('passcode-error').classList.remove('hidden');
-                        passcodeField.value = '';
+
+                        document.getElementById('pin-error').classList.remove('hidden');
+
+                        e.target.value \= '';
+
                     }
+
                 }
+
             });
 
-            // Deteksi Speech Recognition Bawaan Browser
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                state.isSpeechSupported = false;
-                document.getElementById('banner-warning-speech').classList.remove('hidden');
-                // Paksa beralih ke manual mode karena modul suara tidak didukung browser
-                setManualInputMode(true);
+            // Speech Recognition Setup
+
+            const Speech \= window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if(!Speech) {
+
+                toggleMode(true); // Paksa ke mode manual
+
+                document.getElementById('btn-toggle').style.display \= 'none';
+
+                showToast('error', 'Browser tidak dukung mikrofon. Gunakan teks.');
+
             } else {
-                state.recognition = new SpeechRecognition();
-                state.recognition.lang = 'id-ID';
-                state.recognition.continuous = false;
-                state.recognition.interimResults = false;
 
-                state.recognition.onresult = (event) => {
-                    const speechResult = event.results[0][0].transcript;
-                    state.rawText = speechResult;
-                    document.getElementById('text-speech-preview').innerText = `"${speechResult}"`;
-                    document.getElementById('text-speech-preview').classList.remove('text-muted');
-                    setRecordingUI(false);
-                    kirimKeBackend();
+                state.recognition \= new Speech();
+
+                state.recognition.lang \= 'id-ID';
+
+                state.recognition.onresult \= (e) \=> {
+
+                    state.text \= e.results\[0\]\[0\].transcript;
+
+                    document.getElementById('preview-text').innerText \= \`"${state.text}"\`;
+
+                    setRecording(false);
+
+                    kirimData();
+
                 };
 
-                state.recognition.onerror = (e) => {
-                    setRecordingUI(false);
-                    document.getElementById('status-record').innerText = 'Gagal merekam';
-                    showToast('error', 'Suara tidak terdengar jelas, coba lagi.');
-                };
+                state.recognition.onerror \= () \=> { setRecording(false); showToast('error', 'Suara tidak jelas.'); };
 
-                state.recognition.onend = () => {
-                    setRecordingUI(false);
-                };
+                state.recognition.onend \= () \=> { setRecording(false); };
+
             }
-        }
 
-        // TAMPILAN NAVIGATION
-        function showPasscodeScreen() {
-            document.getElementById('screen-passcode').classList.remove('hidden');
-            document.getElementById('screen-dashboard').classList.add('hidden');
-        }
+        };
 
         function showDashboard() {
+
             document.getElementById('screen-passcode').classList.add('hidden');
+
             document.getElementById('screen-dashboard').classList.remove('hidden');
-            
-            // Atur Header User
-            document.getElementById('user-name').innerText = state.currentUser;
-            document.getElementById('user-avatar').innerText = state.currentUser.charAt(0);
+
+            document.getElementById('user-name').innerText \= '👋 ' + state.user;
+
         }
 
-        function logout() {
-            try {
-                localStorage.removeItem('user_keuangan');
-            } catch(e) {}
-            state.isLoggedIn = false;
-            state.currentUser = '';
-            showPasscodeScreen();
-        }
+        function logout() { localStorage.removeItem('user'); location.reload(); }
 
-        // TOGGLE INPUT MODE (SUARA vs KETIK)
-        function toggleInputMode() {
-            setManualInputMode(!state.isManualMode);
-        }
+        function toggleMode(forceManual \= null) {
 
-        function setManualInputMode(toManual) {
-            state.isManualMode = toManual;
-            const toggleBtn = document.getElementById('btn-toggle-mode');
-            const voiceWrap = document.getElementById('wrapper-voice-mode');
-            const manualWrap = document.getElementById('wrapper-manual-mode');
+            state.isManual \= forceManual !== null ? forceManual : !state.isManual;
 
-            if (toManual) {
-                voiceWrap.classList.add('hidden');
-                manualWrap.classList.remove('hidden');
-                toggleBtn.innerText = 'Beralih ke Mode Suara';
-                document.getElementById('input-manual-text').focus();
+            if(state.isManual) {
+
+                document.getElementById('mode-voice').classList.add('hidden');
+
+                document.getElementById('mode-manual').classList.remove('hidden');
+
+                document.getElementById('btn-toggle').innerText \= 'Beralih ke Mikrofon';
+
             } else {
-                voiceWrap.classList.remove('hidden');
-                manualWrap.classList.add('hidden');
-                toggleBtn.innerText = 'Beralih ke Input Teks';
-                if (!state.isSpeechSupported) {
-                    document.getElementById('banner-warning-speech').classList.remove('hidden');
-                }
+
+                document.getElementById('mode-voice').classList.remove('hidden');
+
+                document.getElementById('mode-manual').classList.add('hidden');
+
+                document.getElementById('btn-toggle').innerText \= 'Beralih ke Input Teks';
+
             }
+
         }
 
-        // LOGIKA MEREKAM SUARA
         function toggleMerekam() {
-            if (!state.isSpeechSupported) return;
 
-            if (state.isRecording) {
-                state.recognition.stop();
-                setRecordingUI(false);
-            } else {
-                state.rawText = '';
-                document.getElementById('text-speech-preview').innerText = 'Mendengarkan... Silakan bicara';
-                document.getElementById('text-speech-preview').classList.add('text-muted');
-                setRecordingUI(true);
-                state.recognition.start();
-            }
+            if(state.isRecording) { state.recognition.stop(); setRecording(false); }
+
+            else { state.text \= ''; document.getElementById('preview-text').innerText \= 'Mendengarkan...'; setRecording(true); state.recognition.start(); }
+
         }
 
-        function setRecordingUI(isRec) {
-            state.isRecording = isRec;
-            const micBtn = document.getElementById('btn-mic');
-            const pulse = document.getElementById('mic-pulse');
-            const statusText = document.getElementById('status-record');
+        function setRecording(isRec) {
 
-            if (isRec) {
-                micBtn.classList.add('recording');
-                pulse.classList.remove('hidden');
-                statusText.innerText = 'Mendengarkan...';
-                statusText.classList.add('recording');
-            } else {
-                micBtn.classList.remove('recording');
-                pulse.classList.add('hidden');
-                statusText.classList.remove('recording');
-                statusText.innerText = 'Siap Mencatat';
-            }
+            state.isRecording \= isRec;
+
+            const btn \= document.getElementById('btn-mic');
+
+            const txt \= document.getElementById('status-text');
+
+            if(isRec) { btn.classList.add('recording'); txt.innerText \= 'Bicara Sekarang...'; txt.classList.add('recording'); }
+
+            else { btn.classList.remove('recording'); txt.innerText \= 'Siap Mencatat'; txt.classList.remove('recording'); }
+
         }
 
-        // PROSES KETIK MANUAL
-        function prosesKetikManual() {
-            const txt = document.getElementById('input-manual-text').value.trim();
-            if (!txt) return;
-            state.rawText = txt;
-            kirimKeBackend();
+        function kirimManual() {
+
+            const val \= document.getElementById('input-text').value.trim();
+
+            if(!val) return;
+
+            state.text \= val;
+
+            kirimData();
+
         }
 
-        // KIRIM DATA KE GOOGLE APPS SCRIPT (AI PROSES DI CLOUD)
-        async function kirimKeBackend() {
-            if (!state.appsScriptUrl || state.appsScriptUrl.trim() === '') {
-                showToast('error', 'URL Google Script kosong! Klik ikon gerigi kanan atas untuk mengisi.');
-                return;
-            }
-            setLoading(true, 'Mengirim kalimat ke AI Google Cloud...');
+        // FUNGSI JARINGAN ANTI-CRASH (Bypass CORS dengan text/plain & mode: no-cors)
+
+        async function kirimData() {
+
+            if(!state.url.includes('/exec')) { showToast('error', 'URL Script belum diatur atau salah.'); return; }
+
+            document.getElementById('loader').classList.remove('hidden');
+
             try {
-                // HAPUS "mode: 'no-cors'" agar kita bisa membaca balasan dari server
-                const response = await fetch(state.appsScriptUrl, {
+
+                // Kita gunakan POST biasa dengan no-cors. Respon memang akan buta (opaque),
+
+                // TAPI karena kita menyuruh backend menulis ERROR ke dalam SHEET, kita aman!
+
+                await fetch(state.url, {
+
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Akal-akalan bypass CORS ringan
-                    body: JSON.stringify({
-                        user: state.currentUser,
-                        raw\_text: state.rawText
-                    })
+
+                    mode: 'no-cors',
+
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+
+                    body: JSON.stringify({ user: state.user, raw\_text: state.text })
+
                 });
-                const responseData = await response.json();
-                if (responseData.status === "error") {
-                     // SERVER BILANG ERROR! TAMPILKAN DI HP!
-                     showToast('error', responseData.message);
-                } else {
-                     // SUKSES!
-                     document.getElementById('input-manual-text').value = '';
-                     showToast('success', responseData.pesan || 'Catatan berhasil masuk Sheet!');
-                     document.getElementById('text-speech-preview').innerText = 'Ketuk tombol hijau lalu mulailah berbicara secara alami...';
-                     document.getElementById('text-speech-preview').classList.add('text-muted');
-                }
-            } catch (err) {
-                console.error(err);
-                showToast('error', 'Gagal menghubungkan sistem ke internet/Google.');
+
+                document.getElementById('input-text').value \= '';
+
+                document.getElementById('preview-text').innerText \= 'Sentuh mikrofon untuk bicara...';
+
+                // Jika sukses terkirim ke server (tidak putus internet)
+
+                showToast('success', 'Data terkirim! Cek Google Sheets Anda.');
+
+            } catch(e) {
+
+                showToast('error', 'Gagal kirim. Cek koneksi internet Anda.');
+
             } finally {
-                setLoading(false);
+
+                document.getElementById('loader').classList.add('hidden');
+
             }
+
         }
 
-        function setLoading(isLoading, stepName) {
-            state.isLoading = isLoading;
-            const card = document.getElementById('card-loading');
-            const submitBtn = document.getElementById('btn-submit-manual');
-            const micBtn = document.getElementById('btn-mic');
+        function simpanSetelan() {
 
-            if (isLoading) {
-                card.classList.remove('hidden');
-                document.getElementById('loading-step-text').innerText = stepName;
-                submitBtn.disabled = true;
-                micBtn.disabled = true;
+            const url \= document.getElementById('input-url').value.trim();
+
+            if(url.includes('/exec')) {
+
+                state.url \= url;
+
+                localStorage.setItem('url', url);
+
+                document.getElementById('modal-settings').classList.add('hidden');
+
+                showToast('success', 'URL Tersimpan!');
+
             } else {
-                card.classList.add('hidden');
-                submitBtn.disabled = false;
-                micBtn.disabled = false;
-            }
-        }
 
-        // LOGIKA SETTINGS MODAL
-        function openSettingsModal() {
-            document.getElementById('modal-settings').classList.remove('hidden');
-        }
+                showToast('error', 'URL harus berisi kata /exec');
 
-        function closeSettingsModal() {
-            document.getElementById('modal-settings').classList.add('hidden');
-        }
-
-        function saveSettings() {
-            const urlVal = document.getElementById('input-script-url').value.trim();
-            if (urlVal === '') {
-                showToast('error', 'URL tidak boleh kosong, Bos!');
-                return;
             }
 
-            // Proactive Alert: Deteksi kesalahan salin URL Google Script
-            if (!urlVal.includes('/macros/s/') || !urlVal.includes('/exec')) {
-                showToast('error', 'Format URL salah! Harus mengandung "/macros/s/" dan diakhiri "/exec"');
-                return;
-            }
-
-            state.appsScriptUrl = urlVal;
-            try {
-                localStorage.setItem('apps_script_url', urlVal);
-            } catch(e) {}
-            
-            closeSettingsModal();
-            showToast('success', 'Setelan Google Cloud berhasil disimpan!');
         }
 
-        // NOTIFIKASI TOAST CUSTOM
-        let toastTimeout;
+        let toastTimer;
+
         function showToast(type, msg) {
-            const banner = document.getElementById('toast-banner');
-            const text = document.getElementById('toast-message');
 
-            banner.className = 'toast'; // reset class
-            banner.classList.add(type === 'success' ? 'toast-success' : 'toast-error');
-            text.innerText = msg;
-            
-            banner.classList.remove('hidden');
+            const t \= document.getElementById('toast');
 
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                hideToast();
-            }, 5000);
+            t.className \= 'toast ' + (type \=== 'success' ? 'toast-success' : 'toast-error');
+
+            document.getElementById('toast-msg').innerText \= msg;
+
+            t.classList.remove('hidden');
+
+            clearTimeout(toastTimer);
+
+            toastTimer \= setTimeout(() \=> t.classList.add('hidden'), 4000);
+
         }
 
-        function hideToast() {
-            document.getElementById('toast-banner').classList.add('hidden');
-        }
-    </script>
-</body>
-</html>
+    </script\>
+
+</body\>
+
+</html\>
