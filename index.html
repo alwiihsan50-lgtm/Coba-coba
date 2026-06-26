@@ -992,4 +992,40 @@
         }
     </script>
 </body>
+javascript
+        async function kirimKeBackend() {
+            if (!state.appsScriptUrl || state.appsScriptUrl.trim() === '') {
+                showToast('error', 'URL Google Script kosong! Klik ikon gerigi kanan atas untuk mengisi.');
+                return;
+            }
+            setLoading(true, 'Mengirim kalimat ke AI Google Cloud...');
+            try {
+                // HAPUS "mode: 'no-cors'" agar kita bisa membaca balasan dari server
+                const response = await fetch(state.appsScriptUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Akal-akalan bypass CORS ringan
+                    body: JSON.stringify({
+                        user: state.currentUser,
+                        raw\_text: state.rawText
+                    })
+                });
+                const responseData = await response.json();
+                if (responseData.status === "error") {
+                     // SERVER BILANG ERROR! TAMPILKAN DI HP!
+                     showToast('error', responseData.message);
+                } else {
+                     // SUKSES!
+                     document.getElementById('input-manual-text').value = '';
+                     showToast('success', responseData.pesan || 'Catatan berhasil masuk Sheet!');
+                     document.getElementById('text-speech-preview').innerText = 'Ketuk tombol hijau lalu mulailah berbicara secara alami...';
+                     document.getElementById('text-speech-preview').classList.add('text-muted');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('error', 'Gagal menghubungkan sistem ke internet/Google.');
+            } finally {
+                setLoading(false);
+            }
+        }
+      javascript
 </html>
