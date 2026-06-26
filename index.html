@@ -1,763 +1,430 @@
-<!DOCTYPE html\>
-
-<html lang\="id"\>
-
-<head\>
-
-    <meta charset\="UTF-8"\>
-
-    <meta name\="viewport" content\="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"\>
-
-    <title\>DuitKeluarga</title\>
-
-    <link rel\="preconnect" href\="https://fonts.googleapis.com"\>
-
-    <link rel\="preconnect" href\="https://fonts.gstatic.com" crossorigin\>
-
-    <link href\="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel\="stylesheet"\>
-
-    <style\>
-
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DuitKeluarga</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
         :root {
-
-            \--bg-color: #050505;
-
-            \--card-bg: #111111;
-
-            \--border-color: #2a2a2a;
-
-            \--primary: #10b981;
-
-            \--danger: #ef4444;
-
-            \--text-main: #ffffff;
-
-            \--text-muted: #888888;
-
+            --bg-color: #050505;
+            --card-bg: #111111;
+            --border-color: #2a2a2a;
+            --primary: #10b981;
+            --danger: #ef4444;
+            --text-main: #ffffff;
+            --text-muted: #888888;
         }
 
         body {
-
             background-color: var(--bg-color);
-
             color: var(--text-main);
-
             font-family: 'Inter', sans-serif;
-
             margin: 0;
-
             padding: 0;
-
             min-height: 100vh;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
-            \-webkit-tap-highlight-color: transparent;
-
+            -webkit-tap-highlight-color: transparent;
         }
 
         .app-container {
-
             width: 100%;
-
             max-width: 440px;
-
             background-color: var(--card-bg);
-
             min-height: 100vh;
-
             box-sizing: border-box;
-
             padding: 20px;
-
             display: flex;
-
             flex-direction: column;
-
             position: relative;
-
         }
 
         @media (min-width: 640px) {
-
             .app-container {
-
                 min-height: 800px;
-
                 border-radius: 24px;
-
                 border: 1px solid var(--border-color);
-
             }
-
         }
 
         .hidden { display: none !important; }
 
-        /\* Toast \*/
-
+        /* Toast */
         .toast {
-
             position: absolute;
-
             top: 20px;
-
             left: 20px;
-
             right: 20px;
-
             padding: 14px;
-
             border-radius: 12px;
-
             font-size: 13px;
-
             font-weight: 600;
-
             display: flex;
-
             justify-content: space-between;
-
             z-index: 100;
-
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-
             animation: slideDown 0.3s;
-
         }
-
         .toast-success { background-color: #064e3b; color: #34d399; border: 1px solid #047857; }
-
         .toast-error { background-color: #7f1d1d; color: #fca5a5; border: 1px solid #b91c1c; }
 
-        /\* Passcode Screen \*/
-
+        /* Passcode Screen */
         .passcode-screen {
-
             flex: 1;
-
             display: flex;
-
             flex-direction: column;
-
             justify-content: center;
-
             align-items: center;
-
         }
-
         .passcode-screen h1 { margin-bottom: 8px; font-size: 28px; }
-
         .passcode-input {
-
             width: 180px;
-
             text-align: center;
-
             font-size: 32px;
-
             letter-spacing: 12px;
-
             background-color: #000;
-
             border: 2px solid var(--border-color);
-
             border-radius: 16px;
-
             padding: 16px;
-
             color: white;
-
             outline: none;
-
             margin-top: 20px;
-
         }
-
         .passcode-input:focus { border-color: var(--primary); }
 
-        /\* Dashboard Screen \*/
-
+        /* Dashboard Screen */
         .dashboard-screen {
-
             flex: 1;
-
             display: flex;
-
             flex-direction: column;
-
             gap: 20px;
-
         }
 
-        /\* HEADER (Mini) \*/
-
+        /* HEADER (Mini) */
         .header {
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             padding-bottom: 12px;
-
             border-bottom: 1px solid var(--border-color);
-
         }
-
         .user-info { display: flex; align-items: center; gap: 10px; }
-
         .user-info span { font-weight: 700; font-size: 14px; }
-
         .header-btns button {
-
             background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 5px;
-
         }
 
-        /\* INPUT AREA (SEKARANG DI ATAS) \*/
-
+        /* INPUT AREA (SEKARANG DI ATAS) */
         .input-area {
-
             background-color: #000;
-
             border: 1px solid var(--border-color);
-
             border-radius: 20px;
-
             padding: 24px 20px;
-
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
-
             gap: 20px;
-
         }
 
         .mic-btn {
-
             width: 120px;
-
             height: 120px;
-
             border-radius: 50%;
-
             background-color: var(--primary);
-
             color: #000;
-
             border: none;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             cursor: pointer;
-
             transition: 0.2s;
-
         }
-
         .mic-btn.recording {
-
             background-color: var(--danger);
-
             animation: pulse 1.5s infinite;
-
         }
-
         .mic-btn:disabled { background-color: #333; color: #555; }
 
         .status-text { font-weight: 700; font-size: 16px; text-align: center; }
-
         .status-text.recording { color: var(--danger); }
-
         .preview-text { font-size: 13px; color: var(--text-muted); text-align: center; font-style: italic; }
 
         .manual-input {
-
             width: 100%;
-
             display: flex;
-
             flex-direction: column;
-
             gap: 12px;
-
         }
-
         .manual-input textarea {
-
             width: 100%; box-sizing: border-box;
-
             background: #111; border: 1px solid var(--border-color);
-
             padding: 16px; border-radius: 12px; color: white; resize: none; outline: none;
-
         }
-
         .submit-btn {
-
             background: var(--primary); color: #000; font-weight: 700;
-
             padding: 14px; border-radius: 12px; border: none; cursor: pointer;
-
         }
 
         .toggle-btn {
-
             background: transparent; color: var(--text-muted); border: 1px solid var(--border-color);
-
             padding: 8px 16px; border-radius: 20px; font-size: 12px; cursor: pointer;
-
         }
 
         .loader {
-
             background: #000; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);
-
             display: flex; align-items: center; gap: 12px; font-size: 12px; font-weight: bold;
-
         }
 
-        /\* Settings Modal \*/
-
+        /* Settings Modal */
         .modal {
-
             position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-
             display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
-
         }
-
         .modal-card {
-
             background: var(--card-bg); width: 100%; border-radius: 20px; padding: 20px;
-
             border: 1px solid var(--border-color);
-
         }
-
         .modal-card input {
-
             width: 100%; box-sizing: border-box; background: #000; border: 1px solid var(--border-color);
-
             padding: 12px; border-radius: 8px; color: white; margin: 12px 0; outline: none;
-
         }
-
         .modal-btns { display: flex; gap: 10px; }
-
         .modal-btns button { flex: 1; padding: 12px; border-radius: 8px; border: none; font-weight: bold; }
-
+        
         @keyframes pulse {
-
             0% { transform: scale(1); }
-
             50% { transform: scale(1.05); }
-
             100% { transform: scale(1); }
-
         }
-
         @keyframes slideDown { 0% { transform: translateY(-20px); opacity: 0;} 100% { transform: translateY(0); opacity: 1;} }
+    </style>
+</head>
+<body>
 
-    </style\>
-
-</head\>
-
-<body\>
-
-    <div class\="app-container"\>
-
+    <div class="app-container">
         <!-- Toast Banner -->
-
-        <div id\="toast" class\="toast hidden"\>
-
-            <span id\="toast-msg"\></span\>
-
-            <button onclick\="document.getElementById('toast').classList.add('hidden')" style\="background:none;border:none;color:inherit;font-weight:bold;"\>X</button\>
-
-        </div\>
+        <div id="toast" class="toast hidden">
+            <span id="toast-msg"></span>
+            <button onclick="document.getElementById('toast').classList.add('hidden')" style="background:none;border:none;color:inherit;font-weight:bold;">X</button>
+        </div>
 
         <!-- ========================================== -->
-
         <!-- SCREEN 1: LOGIN -->
+        <!-- ========================================== -->
+        <div id="screen-passcode" class="passcode-screen">
+            <h1>DuitKeluarga</h1>
+            <p style="color:var(--text-muted); font-size:13px;">Masukkan PIN (1111 / 2222 / 3333)</p>
+            <input type="password" id="input-pin" class="passcode-input" pattern="[0-9]*" inputmode="numeric" maxlength="4">
+            <p id="pin-error" class="hidden" style="color:var(--danger); font-size:12px; margin-top:10px;">PIN Salah!</p>
+        </div>
 
         <!-- ========================================== -->
-
-        <div id\="screen-passcode" class\="passcode-screen"\>
-
-            <h1\>DuitKeluarga</h1\>
-
-            <p style\="color:var(--text-muted); font-size:13px;"\>Masukkan PIN (1111 / 2222 / 3333)</p\>
-
-            <input type\="password" id\="input-pin" class\="passcode-input" pattern\="\[0-9\]\*" inputmode\="numeric" maxlength\="4"\>
-
-            <p id\="pin-error" class\="hidden" style\="color:var(--danger); font-size:12px; margin-top:10px;"\>PIN Salah!</p\>
-
-        </div\>
-
-        <!-- ========================================== -->
-
         <!-- SCREEN 2: DASHBOARD UTAMA -->
-
         <!-- ========================================== -->
-
-        <div id\="screen-dashboard" class\="dashboard-screen hidden"\>
-
+        <div id="screen-dashboard" class="dashboard-screen hidden">
+            
             <!-- HEADER KECIL DI ATAS -->
-
-            <div class\="header"\>
-
-                <div class\="user-info"\>
-
-                    <span id\="user-name"\>Memuat...</span\>
-
-                </div\>
-
-                <div class\="header-btns"\>
-
-                    <button onclick\="document.getElementById('modal-settings').classList.remove('hidden')"\>⚙️ Setelan</button\>
-
-                    <button onclick\="logout()" style\="color:var(--danger)"\>Keluar</button\>
-
-                </div\>
-
-            </div\>
+            <div class="header">
+                <div class="user-info">
+                    <span id="user-name">Memuat...</span>
+                </div>
+                <div class="header-btns">
+                    <button onclick="document.getElementById('modal-settings').classList.remove('hidden')">⚙️ Setelan</button>
+                    <button onclick="logout()" style="color:var(--danger)">Keluar</button>
+                </div>
+            </div>
 
             <!-- INPUT AREA (SEKARANG POSISI DI ATAS) -->
-
-            <div class\="input-area"\>
-
+            <div class="input-area">
+                
                 <!-- Mode Suara -->
-
-                <div id\="mode-voice" style\="display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;"\>
-
-                    <button id\="btn-mic" class\="mic-btn" onclick\="toggleMerekam()"\>
-
-                        <svg xmlns\="http://www.w3.org/2000/svg" width\="40" height\="40" viewBox\="0 0 24 24" fill\="none" stroke\="currentColor" stroke-width\="2" stroke-linecap\="round" stroke-linejoin\="round"\><path d\="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"\></path\><path d\="M19 10v1a7 7 0 0 1-14 0v-1"\></path\><line x1\="12" y1\="19" x2\="12" y2\="23"\></line\><line x1\="8" y1\="23" x2\="16" y2\="23"\></line\></svg\>
-
-                    </button\>
-
-                    <div style\="width:100%;"\>
-
-                        <div id\="status-text" class\="status-text"\>Siap Mencatat</div\>
-
-                        <div id\="preview-text" class\="preview-text mt-2"\>Sentuh mikrofon untuk bicara...</div\>
-
-                    </div\>
-
-                </div\>
+                <div id="mode-voice" style="display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;">
+                    <button id="btn-mic" class="mic-btn" onclick="toggleMerekam()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                    </button>
+                    <div style="width:100%;">
+                        <div id="status-text" class="status-text">Siap Mencatat</div>
+                        <div id="preview-text" class="preview-text mt-2">Sentuh mikrofon untuk bicara...</div>
+                    </div>
+                </div>
 
                 <!-- Mode Ketik Manual -->
+                <div id="mode-manual" class="manual-input hidden">
+                    <textarea id="input-text" rows="3" placeholder="Contoh: Beli bensin dua puluh ribu"></textarea>
+                    <button class="submit-btn" onclick="kirimManual()">Kirim ke AI</button>
+                </div>
 
-                <div id\="mode-manual" class\="manual-input hidden"\>
-
-                    <textarea id\="input-text" rows\="3" placeholder\="Contoh: Beli bensin dua puluh ribu"\></textarea\>
-
-                    <button class\="submit-btn" onclick\="kirimManual()"\>Kirim ke AI</button\>
-
-                </div\>
-
-                <button id\="btn-toggle" class\="toggle-btn" onclick\="toggleMode()"\>Beralih ke Input Teks</button\>
-
-            </div\>
+                <button id="btn-toggle" class="toggle-btn" onclick="toggleMode()">Beralih ke Input Teks</button>
+            </div>
 
             <!-- LOADING INDICATOR -->
+            <div id="loader" class="loader hidden">
+                <span style="color:var(--primary)">Sedang memproses & menyimpan data...</span>
+            </div>
 
-            <div id\="loader" class\="loader hidden"\>
-
-                <span style\="color:var(--primary)"\>Sedang memproses & menyimpan data...</span\>
-
-            </div\>
-
-        </div\>
+        </div>
 
         <!-- ========================================== -->
-
         <!-- MODAL SETELAN -->
-
         <!-- ========================================== -->
+        <div id="modal-settings" class="modal hidden">
+            <div class="modal-card">
+                <h3 style="margin:0 0 10px 0;">URL Google Apps Script</h3>
+                <p style="font-size:12px; color:var(--text-muted); margin:0;">Wajib diakhiri dengan /exec</p>
+                <input type="text" id="input-url" placeholder="https://script.google.com/macros/s/.../exec">
+                <div class="modal-btns">
+                    <button onclick="simpanSetelan()" style="background:var(--primary); color:#000;">Simpan</button>
+                    <button onclick="document.getElementById('modal-settings').classList.add('hidden')" style="background:#333; color:white;">Tutup</button>
+                </div>
+            </div>
+        </div>
 
-        <div id\="modal-settings" class\="modal hidden"\>
-
-            <div class\="modal-card"\>
-
-                <h3 style\="margin:0 0 10px 0;"\>URL Google Apps Script</h3\>
-
-                <p style\="font-size:12px; color:var(--text-muted); margin:0;"\>Wajib diakhiri dengan /exec</p\>
-
-                <input type\="text" id\="input-url" placeholder\="https://script.google.com/macros/s/.../exec"\>
-
-                <div class\="modal-btns"\>
-
-                    <button onclick\="simpanSetelan()" style\="background:var(--primary); color:#000;"\>Simpan</button\>
-
-                    <button onclick\="document.getElementById('modal-settings').classList.add('hidden')" style\="background:#333; color:white;"\>Tutup</button\>
-
-                </div\>
-
-            </div\>
-
-        </div\>
-
-    </div\>
+    </div>
 
     <!-- LOGIKA JAVASCRIPT -->
-
-    <script\>
-
-        const KELUARGA \= {'1111':'Ayah', '2222':'Ibu', '3333':'Anak'};
-
-        let state \= { url: '', user: '', isManual: false, isRecording: false, text: '', recognition: null };
+    <script>
+        const KELUARGA = {'1111':'Ayah', '2222':'Ibu', '3333':'Anak'};
+        let state = { url: '', user: '', isManual: false, isRecording: false, text: '', recognition: null };
 
         // INIT
-
-        window.onload \= () \=> {
-
-            if(localStorage.getItem('url')) { state.url \= localStorage.getItem('url'); document.getElementById('input-url').value \= state.url; }
-
-            if(localStorage.getItem('user')) { state.user \= localStorage.getItem('user'); showDashboard(); }
-
+        window.onload = () => {
+            if(localStorage.getItem('url')) { state.url = localStorage.getItem('url'); document.getElementById('input-url').value = state.url; }
+            if(localStorage.getItem('user')) { state.user = localStorage.getItem('user'); showDashboard(); }
+            
             // PIN Input logic
-
-            document.getElementById('input-pin').addEventListener('input', (e) \=> {
-
-                if(e.target.value.length \=== 4) {
-
-                    if(KELUARGA\[e.target.value\]) {
-
-                        state.user \= KELUARGA\[e.target.value\];
-
+            document.getElementById('input-pin').addEventListener('input', (e) => {
+                if(e.target.value.length === 4) {
+                    if(KELUARGA[e.target.value]) {
+                        state.user = KELUARGA[e.target.value];
                         localStorage.setItem('user', state.user);
-
-                        e.target.value \= '';
-
+                        e.target.value = '';
                         document.getElementById('pin-error').classList.add('hidden');
-
                         showToast('success', 'Selamat datang ' + state.user);
-
                         showDashboard();
-
                     } else {
-
                         document.getElementById('pin-error').classList.remove('hidden');
-
-                        e.target.value \= '';
-
+                        e.target.value = '';
                     }
-
                 }
-
             });
 
             // Speech Recognition Setup
-
-            const Speech \= window.SpeechRecognition || window.webkitSpeechRecognition;
-
+            const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
             if(!Speech) {
-
                 toggleMode(true); // Paksa ke mode manual
-
-                document.getElementById('btn-toggle').style.display \= 'none';
-
+                document.getElementById('btn-toggle').style.display = 'none';
                 showToast('error', 'Browser tidak dukung mikrofon. Gunakan teks.');
-
             } else {
-
-                state.recognition \= new Speech();
-
-                state.recognition.lang \= 'id-ID';
-
-                state.recognition.onresult \= (e) \=> {
-
-                    state.text \= e.results\[0\]\[0\].transcript;
-
-                    document.getElementById('preview-text').innerText \= \`"${state.text}"\`;
-
+                state.recognition = new Speech();
+                state.recognition.lang = 'id-ID';
+                state.recognition.onresult = (e) => {
+                    state.text = e.results[0][0].transcript;
+                    document.getElementById('preview-text').innerText = `"${state.text}"`;
                     setRecording(false);
-
                     kirimData();
-
                 };
-
-                state.recognition.onerror \= () \=> { setRecording(false); showToast('error', 'Suara tidak jelas.'); };
-
-                state.recognition.onend \= () \=> { setRecording(false); };
-
+                state.recognition.onerror = () => { setRecording(false); showToast('error', 'Suara tidak jelas.'); };
+                state.recognition.onend = () => { setRecording(false); };
             }
-
         };
 
         function showDashboard() {
-
             document.getElementById('screen-passcode').classList.add('hidden');
-
             document.getElementById('screen-dashboard').classList.remove('hidden');
-
-            document.getElementById('user-name').innerText \= '👋 ' + state.user;
-
+            document.getElementById('user-name').innerText = '👋 ' + state.user;
         }
 
         function logout() { localStorage.removeItem('user'); location.reload(); }
 
-        function toggleMode(forceManual \= null) {
-
-            state.isManual \= forceManual !== null ? forceManual : !state.isManual;
-
+        function toggleMode(forceManual = null) {
+            state.isManual = forceManual !== null ? forceManual : !state.isManual;
             if(state.isManual) {
-
                 document.getElementById('mode-voice').classList.add('hidden');
-
                 document.getElementById('mode-manual').classList.remove('hidden');
-
-                document.getElementById('btn-toggle').innerText \= 'Beralih ke Mikrofon';
-
+                document.getElementById('btn-toggle').innerText = 'Beralih ke Mikrofon';
             } else {
-
                 document.getElementById('mode-voice').classList.remove('hidden');
-
                 document.getElementById('mode-manual').classList.add('hidden');
-
-                document.getElementById('btn-toggle').innerText \= 'Beralih ke Input Teks';
-
+                document.getElementById('btn-toggle').innerText = 'Beralih ke Input Teks';
             }
-
         }
 
         function toggleMerekam() {
-
             if(state.isRecording) { state.recognition.stop(); setRecording(false); }
-
-            else { state.text \= ''; document.getElementById('preview-text').innerText \= 'Mendengarkan...'; setRecording(true); state.recognition.start(); }
-
+            else { state.text = ''; document.getElementById('preview-text').innerText = 'Mendengarkan...'; setRecording(true); state.recognition.start(); }
         }
 
         function setRecording(isRec) {
-
-            state.isRecording \= isRec;
-
-            const btn \= document.getElementById('btn-mic');
-
-            const txt \= document.getElementById('status-text');
-
-            if(isRec) { btn.classList.add('recording'); txt.innerText \= 'Bicara Sekarang...'; txt.classList.add('recording'); }
-
-            else { btn.classList.remove('recording'); txt.innerText \= 'Siap Mencatat'; txt.classList.remove('recording'); }
-
+            state.isRecording = isRec;
+            const btn = document.getElementById('btn-mic');
+            const txt = document.getElementById('status-text');
+            if(isRec) { btn.classList.add('recording'); txt.innerText = 'Bicara Sekarang...'; txt.classList.add('recording'); }
+            else { btn.classList.remove('recording'); txt.innerText = 'Siap Mencatat'; txt.classList.remove('recording'); }
         }
 
         function kirimManual() {
-
-            const val \= document.getElementById('input-text').value.trim();
-
+            const val = document.getElementById('input-text').value.trim();
             if(!val) return;
-
-            state.text \= val;
-
+            state.text = val;
             kirimData();
-
         }
 
         // FUNGSI JARINGAN ANTI-CRASH (Bypass CORS dengan text/plain & mode: no-cors)
-
         async function kirimData() {
-
             if(!state.url.includes('/exec')) { showToast('error', 'URL Script belum diatur atau salah.'); return; }
-
+            
             document.getElementById('loader').classList.remove('hidden');
-
+            
             try {
-
                 // Kita gunakan POST biasa dengan no-cors. Respon memang akan buta (opaque),
-
                 // TAPI karena kita menyuruh backend menulis ERROR ke dalam SHEET, kita aman!
-
                 await fetch(state.url, {
-
                     method: 'POST',
-
                     mode: 'no-cors',
-
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-
-                    body: JSON.stringify({ user: state.user, raw\_text: state.text })
-
+                    body: JSON.stringify({ user: state.user, raw_text: state.text })
                 });
 
-                document.getElementById('input-text').value \= '';
-
-                document.getElementById('preview-text').innerText \= 'Sentuh mikrofon untuk bicara...';
-
+                document.getElementById('input-text').value = '';
+                document.getElementById('preview-text').innerText = 'Sentuh mikrofon untuk bicara...';
+                
                 // Jika sukses terkirim ke server (tidak putus internet)
-
                 showToast('success', 'Data terkirim! Cek Google Sheets Anda.');
 
             } catch(e) {
-
                 showToast('error', 'Gagal kirim. Cek koneksi internet Anda.');
-
             } finally {
-
                 document.getElementById('loader').classList.add('hidden');
-
             }
-
         }
 
         function simpanSetelan() {
-
-            const url \= document.getElementById('input-url').value.trim();
-
+            const url = document.getElementById('input-url').value.trim();
             if(url.includes('/exec')) {
-
-                state.url \= url;
-
+                state.url = url;
                 localStorage.setItem('url', url);
-
                 document.getElementById('modal-settings').classList.add('hidden');
-
                 showToast('success', 'URL Tersimpan!');
-
             } else {
-
                 showToast('error', 'URL harus berisi kata /exec');
-
             }
-
         }
 
         let toastTimer;
-
         function showToast(type, msg) {
-
-            const t \= document.getElementById('toast');
-
-            t.className \= 'toast ' + (type \=== 'success' ? 'toast-success' : 'toast-error');
-
-            document.getElementById('toast-msg').innerText \= msg;
-
+            const t = document.getElementById('toast');
+            t.className = 'toast ' + (type === 'success' ? 'toast-success' : 'toast-error');
+            document.getElementById('toast-msg').innerText = msg;
             t.classList.remove('hidden');
-
             clearTimeout(toastTimer);
-
-            toastTimer \= setTimeout(() \=> t.classList.add('hidden'), 4000);
-
+            toastTimer = setTimeout(() => t.classList.add('hidden'), 4000);
         }
-
-    </script\>
-
-</body\>
-
-</html\>
+    </script>
+</body>
+</html>
